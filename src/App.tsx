@@ -1,4 +1,5 @@
 import { getTopSongs } from 'BaseRestService';
+import SongCard from 'components/SongCard';
 import { Song } from 'model/Song';
 import { useEffect, useState } from 'react';
 import './App.css';
@@ -20,6 +21,9 @@ function App() {
     return (
         <>
             <h2>{artistName}</h2>
+            {songs.map((song) => {
+                return <SongCard song={song} />
+            })}
         </>
     );
 }
