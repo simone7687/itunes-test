@@ -1,24 +1,26 @@
+import { getTopSongs } from 'BaseRestService';
+import { Song } from 'model/Song';
+import { useEffect, useState } from 'react';
 import './App.css';
-import logo from './logo.svg';
 
 function App() {
+    const [songs, setSongs] = useState<Song[]>([])
+    const [artistName, setArtistName] = useState<string | undefined>()
+
+    useEffect(() => {
+        getTopSongs("Jake Kasdan").then((songs) => {
+            setSongs(songs)
+            if (songs.length > 0) {
+                setArtistName(songs[0].artistName)
+            }
+        })
+    }, [])
+
+
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
-        </div>
+        <>
+            <h2>{artistName}</h2>
+        </>
     );
 }
 
