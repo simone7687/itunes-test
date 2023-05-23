@@ -1,3 +1,8 @@
+export interface SongResult {
+    results: Song[],
+    resultCount: number,
+}
+
 export interface Song {
     wrapperType: string,
     kind: string,
@@ -29,5 +34,5 @@ export interface Song {
     country: string,
     currency: string,
     primaryGenreName: string,
-    isStreamable: boolean
+    isStreamable: boolean,
 }
