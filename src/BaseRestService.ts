@@ -6,7 +6,7 @@ export async function getTopSongs(artistName: string, limit: number = 50): Promi
         artistName = artistName.replace(' ', '+').toLocaleLowerCase();
         const response = await axios.get<SongResult>(`https://itunes.apple.com/search?term=${artistName}&entità=canzone&limit=${limit}`);
         console.log(response);
-        return response.data.results;
+        return response?.data?.results || [];
     } catch (error) {
         console.error(error);
         return [];
