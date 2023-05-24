@@ -9,7 +9,7 @@ import './App.css';
 function App() {
     const [songs, setSongs] = useState<Song[]>([])
     const [artistName, setArtistName] = useState<string | undefined>()
-    const [searchValue, setSearchValue] = useState<string>("Jake Kasdan")
+    const [searchValue, setSearchValue] = useState<string>("Jake Owen")
 
     useEffect(() => {
         getTopSongs(searchValue).then((songs) => {
