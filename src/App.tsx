@@ -43,10 +43,15 @@ function App() {
                 marginBottom={4}
             >
                 {!loading && <>
-                    <h2>{artistName}</h2>
-                    {songs.map((song) => {
-                        return <SongCard song={song} />
-                    })}
+                    {songs.length > 0 &&
+                        <>
+                            <h2>{artistName}</h2>
+                            {songs.map((song) => {
+                                return <SongCard song={song} />
+                            })}
+                        </>
+                    }
+                    {songs.length === 0 && <h2>Nessuna canzone trovata</h2>}
                 </>}
                 {loading && <Box sx={{ display: 'flex' }}>
                     <CircularProgress />
