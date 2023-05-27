@@ -51,7 +51,7 @@ function App() {
                             })}
                         </>
                     }
-                    {songs.length === 0 && <h2>Nessuna artista trovata</h2>}
+                    {songs.length === 0 && <h2>Nessuna artista trovato</h2>}
                 </>}
                 {loading && <Box sx={{ display: 'flex' }}>
                     <CircularProgress />
