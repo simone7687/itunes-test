@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Box, CircularProgress, Grid } from '@mui/material';
 import { getTopSongs } from 'BaseRestService';
 import Navbar from 'components/Navbar';
 import SongCard from 'components/SongCard';
@@ -10,20 +10,29 @@ function App() {
     const [songs, setSongs] = useState<Song[]>([])
     const [artistName, setArtistName] = useState<string | undefined>()
     const [searchValue, setSearchValue] = useState<string>("Jake Kasdan")
+    const [loading, setLoading] = useState<boolean>(false)
 
     useEffect(() => {
+        setLoading(true)
         getTopSongs(searchValue).then((songs) => {
             setSongs(songs)
             if (songs.length > 0) {
                 setArtistName(songs[0].artistName)
             }
+            setLoading(false)
+        }).catch((error) => {
+            setLoading(false)
+            console.log(error)
         })
     }, [searchValue])
 
 
     return (
         <>
-            <Navbar serch={setSearchValue} />
+            <Navbar
+                serch={setSearchValue}
+                loading={loading}
+            />
             <Grid
                 container
                 direction="column"
@@ -33,10 +42,15 @@ function App() {
                 pt={4}
                 marginBottom={4}
             >
-                <h2>{artistName}</h2>
-                {songs.map((song) => {
-                    return <SongCard song={song} />
-                })}
+                {!loading && <>
+                    <h2>{artistName}</h2>
+                    {songs.map((song) => {
+                        return <SongCard song={song} />
+                    })}
+                </>}
+                {loading && <Box sx={{ display: 'flex' }}>
+                    <CircularProgress />
+                </Box>}
             </Grid>
         </>
     );

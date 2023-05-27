@@ -1,15 +1,16 @@
 import SearchIcon from '@mui/icons-material/Search';
 import SendIcon from '@mui/icons-material/Send';
-import { AppBar, Box, Container, Grid, IconButton, InputAdornment, InputBaseProps, TextField, Toolbar } from '@mui/material';
+import { AppBar, Box, CircularProgress, Container, Grid, IconButton, InputAdornment, InputBaseProps, TextField, Toolbar } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
 import { FocusEvent, useState } from 'react';
 
 type NavbarProps = {
     serch: (searchValue: string) => void
+    loading?: boolean
 }
 
 export default function Navbar(props: NavbarProps) {
-    const { serch } = props
+    const { serch, loading } = props
     const [value, setValue] = useState<string>("")
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
@@ -99,9 +100,11 @@ export default function Navbar(props: NavbarProps) {
                                             endAdornment: <InputAdornment position="end">
                                                 <IconButton
                                                     aria-label="search"
+                                                    disabled={loading}
                                                     onClick={() => serch(value)}
                                                 >
-                                                    <SendIcon sx={{ color: "white" }} />
+                                                    {loading && <CircularProgress size={20} />}
+                                                    {!loading && <SendIcon sx={{ color: "white" }} />}
                                                 </IconButton>
                                             </InputAdornment>
                                         }}
