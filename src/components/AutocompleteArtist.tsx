@@ -18,6 +18,7 @@ interface AutocompleteArtistProps {
     sx?: any;
     onBlur?: any;
     onKeyDown?: any;
+    onChange?: any;
 }
 
 export default function AutocompleteArtist(props: AutocompleteArtistProps) {
@@ -92,6 +93,9 @@ export default function AutocompleteArtist(props: AutocompleteArtistProps) {
             onChange={(event: any, newValue: Artist | null) => {
                 setOptions(newValue ? [newValue, ...options] : options);
                 setValue(newValue);
+                if (props.onChange) {
+                    props.onChange(newValue)
+                }
             }}
             onInputChange={(event, newInputValue) => {
                 setInputValue(newInputValue);

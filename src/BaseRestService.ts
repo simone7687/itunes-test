@@ -5,9 +5,13 @@ import { Song, SongResult } from 'model/Song';
 export async function getTopSongs(artistName: string, limit: number = 50): Promise<Song[]> {
     try {
         artistName = artistName.replace(' ', '+').toLocaleLowerCase();
-        const response = await axios.get<SongResult>(`https://itunes.apple.com/search?term=${artistName}&attribute=artistTerm&entity=song&limit=${limit}`);
+        const response = await axios.get<SongResult>(`https://itunes.apple.com/lookup?id=${artistName}&entity=song&limit=${limit}`);
         console.log(response);
-        return response?.data?.results || [];
+        let res = response?.data?.results || [];
+        if (res.length > 0) {
+            res.shift();
+        }
+        return res;
     } catch (error) {
         console.error(error);
         return [];
