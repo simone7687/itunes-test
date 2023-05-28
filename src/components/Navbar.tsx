@@ -1,8 +1,9 @@
 import SearchIcon from '@mui/icons-material/Search';
 import SendIcon from '@mui/icons-material/Send';
-import { AppBar, Box, CircularProgress, Container, Grid, IconButton, InputAdornment, InputBaseProps, TextField, Toolbar } from '@mui/material';
+import { AppBar, Box, CircularProgress, Container, Grid, IconButton, InputAdornment, InputBaseProps, Toolbar } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
 import { FocusEvent, useState } from 'react';
+import AutocompleteArtist from './AutocompleteArtist';
 
 type NavbarProps = {
     serch: (searchValue: string) => void
@@ -41,7 +42,7 @@ export default function Navbar(props: NavbarProps) {
         justifyContent: 'center',
     }));
 
-    const StyledInputBase = styled(TextField)(({ theme }) => ({
+    const StyledInputBase = styled(AutocompleteArtist)(({ theme }) => ({
         color: 'inherit',
         '& .MuiInputBase-input': {
             // padding: theme.spacing(1, 1, 1, 0),

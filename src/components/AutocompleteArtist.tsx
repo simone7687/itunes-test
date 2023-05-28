@@ -98,8 +98,10 @@ export default function AutocompleteArtist(props: AutocompleteArtistProps) {
             }}
             renderInput={(params) => (
                 <TextField
-                    {...params}
                     {...props}
+                    id={params.id}
+                    InputLabelProps={params.InputLabelProps}
+                    inputProps={params.inputProps}
                 />
             )}
             renderOption={(props, option) => {
