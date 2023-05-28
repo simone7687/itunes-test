@@ -1,17 +1,15 @@
-import SearchIcon from '@mui/icons-material/Search';
-import SendIcon from '@mui/icons-material/Send';
-import { AppBar, Box, CircularProgress, Container, Grid, IconButton, InputAdornment, InputBaseProps, TextField, Toolbar } from '@mui/material';
+import { AppBar, Box, Container, Grid, Toolbar } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
-import { FocusEvent, useState } from 'react';
+import { Artist } from 'model/Artist';
+import AutocompleteArtist from './AutocompleteArtist';
 
 type NavbarProps = {
-    serch: (searchValue: string) => void
+    serch: (id: string | undefined, name: string) => void
     loading?: boolean
 }
 
 export default function Navbar(props: NavbarProps) {
     const { serch, loading } = props
-    const [value, setValue] = useState<string>("")
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
@@ -23,25 +21,19 @@ export default function Navbar(props: NavbarProps) {
         width: '100%',
         [theme.breakpoints.up('md')]: {
             marginLeft: theme.spacing(1),
-            width: 'auto',
+            width: '90ch',
         },
+        [theme.breakpoints.up('lg')]: {
+            marginLeft: theme.spacing(1),
+            width: '90ch',
+        },
+
     }));
-    const onChange: InputBaseProps['onBlur'] = (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => {
-        setValue(event.target.value)
+    const onChange = (artist?: Artist) => {
+        if (artist?.artistId) { serch(artist?.artistId.toString(), artist.artistName) }
     }
 
-
-    const SearchIconWrapper = styled('div')(({ theme }) => ({
-        padding: theme.spacing(0, 2),
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    }));
-
-    const StyledInputBase = styled(TextField)(({ theme }) => ({
+    const StyledInputBase = styled(AutocompleteArtist)(({ theme }) => ({
         color: 'inherit',
         '& .MuiInputBase-input': {
             // padding: theme.spacing(1, 1, 1, 0),
@@ -50,18 +42,13 @@ export default function Navbar(props: NavbarProps) {
             transition: theme.transitions.create('width'),
             width: '100%',
             [theme.breakpoints.up('md')]: {
-                width: '60ch',
-                '&:focus': {
-                    width: '70ch',
-                },
+                width: '90ch',
             },
             [theme.breakpoints.up('lg')]: {
                 width: '90ch',
-                '&:focus': {
-                    width: '100ch',
-                },
             },
         },
+        width: "100%",
     }));
 
 
@@ -78,36 +65,11 @@ export default function Navbar(props: NavbarProps) {
                                 alignItems="center"
                             >
                                 <Search>
-                                    <SearchIconWrapper>
-                                        <SearchIcon />
-                                    </SearchIconWrapper>
                                     <StyledInputBase
-                                        placeholder="Search…"
-                                        inputProps={{ 'aria-label': 'search' }}
+                                        placeholder="Cerca"
                                         fullWidth
-                                        defaultValue={value}
                                         sx={{ input: { color: 'white' } }}
-                                        onBlur={onChange}
-                                        onKeyDown={(e: any) => {
-                                            if (e.key === 'Enter') {
-                                                if (e.target?.value) {
-                                                    serch(e.target?.value)
-                                                    setValue(e.target?.value)
-                                                }
-                                            }
-                                        }}
-                                        InputProps={{
-                                            endAdornment: <InputAdornment position="end">
-                                                <IconButton
-                                                    aria-label="search"
-                                                    disabled={loading}
-                                                    onClick={() => serch(value)}
-                                                >
-                                                    {loading && <CircularProgress size={20} />}
-                                                    {!loading && <SendIcon sx={{ color: "white" }} />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        }}
+                                        onChange={onChange}
                                     />
                                 </Search>
                             </Grid>

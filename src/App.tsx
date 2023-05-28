@@ -8,17 +8,25 @@ import './App.css';
 
 function App() {
     const [songs, setSongs] = useState<Song[]>([])
-    const [artistName, setArtistName] = useState<string | undefined>()
-    const [searchValue, setSearchValue] = useState<string>("Jake Kasdan")
+    const [artistName, setArtistName] = useState<string | undefined>("Jake Owen")
+    const [searchValue, setSearchValue] = useState<string | undefined>("128412737")
     const [loading, setLoading] = useState<boolean>(false)
+
+    const search = (id: string | undefined, name: string) => {
+        if (id) {
+            setSearchValue(id)
+        }
+        setArtistName(name)
+    }
 
     useEffect(() => {
         setLoading(true)
+        if (searchValue === undefined) {
+            setSongs([])
+            return
+        }
         getTopSongs(searchValue).then((songs) => {
             setSongs(songs)
-            if (songs.length > 0) {
-                setArtistName(songs[0].artistName)
-            }
             setLoading(false)
         }).catch((error) => {
             setLoading(false)
@@ -30,7 +38,7 @@ function App() {
     return (
         <>
             <Navbar
-                serch={setSearchValue}
+                serch={search}
                 loading={loading}
             />
             <Grid
@@ -51,7 +59,7 @@ function App() {
                             })}
                         </>
                     }
-                    {songs.length === 0 && <h2>Nessuna artista trovato</h2>}
+                    {songs.length === 0 && searchValue && <h2>Nessuna canzone trovata per {artistName}</h2>}
                 </>}
                 {loading && <Box sx={{ display: 'flex' }}>
                     <CircularProgress />
