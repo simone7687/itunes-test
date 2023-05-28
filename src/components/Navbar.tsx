@@ -63,6 +63,9 @@ export default function Navbar(props: NavbarProps) {
                 },
             },
         },
+        '& .MuiAutocomplete-input': {
+            width: null,
+        },
     }));
 
 
