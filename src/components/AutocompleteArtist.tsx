@@ -102,6 +102,7 @@ export default function AutocompleteArtist(props: AutocompleteArtistProps) {
                     id={params.id}
                     InputLabelProps={params.InputLabelProps}
                     inputProps={params.inputProps}
+                    InputProps={params.InputProps}
                 />
             )}
             renderOption={(props, option) => {
