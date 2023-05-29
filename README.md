@@ -21,5 +21,5 @@ La versione sul branch main non ha il pulsante per cercare ma è gestito con un 
 Ho tenuto anche una versione con la ricerca senza Autocomplete, che fa la ricerca attraverso il nome del artista come richiesto.
 pe scaricarlo:
 ```shell
-git clone https://github.com/simone7687/itunes-test no-autocomplete
+git clone -b no-autocomplete https://github.com/simone7687/itunes-test
 ```
