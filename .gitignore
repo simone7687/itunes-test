@@ -24,7 +24,6 @@ yarn-error.log*
 .vscode/extensions.json
 .vscode/launch.json
 .vscode/settings.json
-tsconfig.json
 .hintrc
 .env
 .editorconfig
